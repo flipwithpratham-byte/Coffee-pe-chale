@@ -29,6 +29,22 @@ body {
 /* first screen */
 #screen1 {
     background: linear-gradient(135deg, #1a1a1a, #000);
+    z-index: 2;
+}
+
+/* second screen */
+#screen2 {
+    background: radial-gradient(circle, #111, #000);
+    opacity: 0;
+    transform: scale(1.2);
+    z-index: 1;
+}
+
+/* active screen */
+.show {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    z-index: 3 !important;
 }
 
 h1 {
@@ -57,19 +73,6 @@ button {
     color: #aaa;
 }
 
-/* second screen */
-#screen2 {
-    background: radial-gradient(circle, #111, #000);
-    opacity: 0;
-    transform: scale(1.2);
-}
-
-/* active transition */
-.show {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-}
-
 /* message */
 #message {
     max-width: 85%;
@@ -78,11 +81,6 @@ button {
     text-align: center;
     opacity: 0;
     transition: 2s;
-}
-
-/* glow text */
-.glow {
-    text-shadow: 0 0 10px rgba(255,255,255,0.6);
 }
 
 /* particles */
@@ -105,7 +103,7 @@ button {
 
 <body>
 
-<!-- 🎵 Music -->
+<!-- 🎵 music -->
 <iframe id="music" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
 
 <!-- Screen 1 -->
@@ -119,53 +117,56 @@ button {
 
 <!-- Screen 2 -->
 <div id="screen2" class="screen">
-    <div id="message" class="glow">
+    <div id="message">
         Savi…<br><br>
 
-        I don’t say this often… but you matter to me.  
-        A lot more than I show.<br><br>
+        You matter to me more than I say.  
+        When you weren’t okay… it hurt.<br><br>
 
-        When you weren’t okay… it genuinely hurt.  
-        I felt it here… like something wasn’t right.<br><br>
+        It felt like something wasn’t right inside me.  
+        Maybe weird… but real.<br><br>
 
-        Maybe it sounds strange…  
-        but it feels like after so many prayers,  
-        life sent me someone like you.<br><br>
+        I just want to see you smile… always ❤️<br><br>
 
-        I just want to see you smile… always. ❤️<br><br>
-
-        So… let’s start simple —  
-        coffee? ☕
+        So… coffee? ☕
     </div>
 </div>
 
 <script>
 let yesBtn = document.getElementById("yesBtn");
 let noBtn = document.getElementById("noBtn");
+let screen1 = document.getElementById("screen1");
+let screen2 = document.getElementById("screen2");
+let message = document.getElementById("message");
 
-// NO button moves slightly
-noBtn.addEventListener("mouseover", function() {
-    let x = Math.random() * 200 - 100;
-    let y = Math.random() * 100 - 50;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-});
+let noSize = 16;
 
-// YES click → transition
+// ✅ YES click
 yesBtn.onclick = function() {
-    document.getElementById("screen1").style.opacity = "0";
-    document.getElementById("screen1").style.transform = "scale(0.8)";
+    screen1.style.opacity = "0";
+    screen1.style.transform = "scale(0.8)";
 
-    let s2 = document.getElementById("screen2");
-    s2.classList.add("show");
+    screen2.classList.add("show");
 
-    // show text after delay
     setTimeout(() => {
-        document.getElementById("message").style.opacity = "1";
+        message.style.opacity = "1";
     }, 800);
 
-    // start music 🎵
+    // 🎵 start music
     document.getElementById("music").src =
     "https://www.youtube.com/embed/5Eqb_-j3FDA?autoplay=1&loop=1&playlist=5Eqb_-j3FDA";
+};
+
+// ✅ NO click (shrink)
+noBtn.onclick = function() {
+    noSize -= 2;
+
+    noBtn.style.fontSize = noSize + "px";
+    noBtn.style.padding = (noSize/2) + "px " + noSize + "px";
+
+    if (noSize <= 6) {
+        noBtn.style.display = "none";
+    }
 };
 
 // particles
