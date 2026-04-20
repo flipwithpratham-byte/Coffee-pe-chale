@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Savi 💖</title>
+<title>Savi 💖</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    background: #ffeff7;
     overflow: hidden;
-    color: #fff;
+    color: #333;
 }
 
 /* screens */
@@ -28,13 +28,13 @@ body {
 
 /* first screen */
 #screen1 {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
     z-index: 2;
 }
 
 /* second screen */
 #screen2 {
-    background: radial-gradient(circle, #ffdde1, #ee9ca7);
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
     opacity: 0;
     transform: scale(1.2);
     z-index: 1;
@@ -51,15 +51,12 @@ h1 {
     font-size: 28px;
     text-align: center;
     color: #fff;
-    animation: heartbeat 1.5s infinite;
+    animation: bounce 2s infinite;
 }
 
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.1); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 /* buttons */
@@ -77,6 +74,13 @@ button {
     background: #ff4081;
     color: white;
     box-shadow: 0 0 15px rgba(255,64,129,0.6);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 #noBtn {
@@ -99,7 +103,7 @@ button {
 /* floating hearts */
 .heart {
     position: fixed;
-    font-size: 20px;
+    font-size: 24px;
     color: #ff4081;
     animation: float 6s linear infinite;
 }
@@ -118,7 +122,7 @@ button {
 
 <!-- Screen 1 -->
 <div id="screen1" class="screen">
-    <h1>Savi… will you go for coffee with me? ☕💖</h1>
+    <h1>Savi… will you be my coffee date? ☕💖</h1>
     <div>
         <button id="yesBtn">Yes 💕</button>
         <button id="noBtn">No 🙈</button>
@@ -129,10 +133,10 @@ button {
 <div id="screen2" class="screen">
     <div id="message">
         Savi…<br><br>
-        Tum meri duniya ko aur rangin bana deti ho 🌸<br><br>
-        Har din tumhari muskaan dekhna meri khwahish hai 💖<br><br>
-        Coffee ke saath… ek chhoti si kahani hum dono ki ☕✨<br><br>
-        Will you? 💕
+        Tum meri kahani ka sabse pyara hissa ho 🌸<br><br>
+        Har din tumhari muskaan meri duniya roshan karti hai 💖<br><br>
+        Coffee ke saath… ek chhoti si journey hum dono ki ☕✨<br><br>
+        Will you share it with me? 💕
     </div>
 </div>
 
