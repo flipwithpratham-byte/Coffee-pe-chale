@@ -12,6 +12,7 @@ body {
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     overflow: hidden;
     color: #fff;
+    text-align: center;
 }
 
 /* screens */
@@ -49,8 +50,6 @@ body {
 
 h1 {
     font-size: 28px;
-    text-align: center;
-    color: #fff;
     animation: bounce 2s infinite;
 }
 
@@ -68,6 +67,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
+    position: relative;
 }
 
 #yesBtn {
@@ -100,24 +100,19 @@ button {
     color: #fff;
 }
 
-/* floating hearts */
-.heart {
-    position: fixed;
-    font-size: 24px;
-    color: #ff4081;
-    animation: float 6s linear infinite;
-}
-
-@keyframes float {
-    from {transform: translateY(100vh);}
-    to {transform: translateY(-10vh);}
+/* panda + heart */
+#pandaReaction {
+    font-size: 40px;
+    margin-top: 20px;
+    opacity: 0;
+    transition: 0.5s;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 music (YouTube embed, no file needed) -->
+<!-- 🎵 music -->
 <iframe id="music" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
 
 <!-- Screen 1 -->
@@ -127,14 +122,19 @@ button {
         <button id="yesBtn">Yes 💕</button>
         <button id="noBtn">No 🙈</button>
     </div>
+    <div id="pandaReaction"></div>
 </div>
 
 <!-- Screen 2 -->
 <div id="screen2" class="screen">
     <div id="message">
         Savi…<br><br>
-        I don’t know how to say this perfectly, but I feel it deeply… every single day.<br><br>
-        I admire you more than you probably realize. The way you are… the way you exist… it just feels special to me. 💖
+        You matter to me more than I say.<br>
+        When you weren’t okay… it hurt.<br><br>
+        It felt like something wasn’t right inside me.<br>
+        Maybe weird… but real.<br><br>
+        I just want to see you smile… always ❤️<br><br>
+        So… coffee? ☕
     </div>
 </div>
 
@@ -144,6 +144,7 @@ let noBtn = document.getElementById("noBtn");
 let screen1 = document.getElementById("screen1");
 let screen2 = document.getElementById("screen2");
 let message = document.getElementById("message");
+let pandaReaction = document.getElementById("pandaReaction");
 
 let noSize = 16;
 
@@ -159,32 +160,34 @@ yesBtn.onclick = function() {
         message.style.opacity = "1";
     }, 800);
 
-    // 🎵 start music (romantic track from YouTube)
+    // Panda smile
+    pandaReaction.innerHTML = "🐼💖";
+    pandaReaction.style.opacity = "1";
+
+    // 🎵 start music
     document.getElementById("music").src =
     "https://www.youtube.com/embed/5Eqb_-j3FDA?autoplay=1&loop=1&playlist=5Eqb_-j3FDA";
 };
 
-// ✅ NO click (shrink)
+// ✅ NO click (shrink + move + angry panda)
 noBtn.onclick = function() {
     noSize -= 2;
+    noBtn.style.fontSize = noSize + "px";
+    noBtn.style.padding = (noSize/2) + "px " + noSize + "px";
+
+    // random position shift
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random() * 80 + "vw";
+    noBtn.style.top = Math.random() * 60 + "vh";
+
+    // angry panda reaction
+    pandaReaction.innerHTML = "🐼💔 No No!";
+    pandaReaction.style.opacity = "1";
+
     if (noSize <= 10) {
         noBtn.style.display = "none";
-    } else {
-        noBtn.style.fontSize = noSize + "px";
-        noBtn.style.padding = (noSize/2) + "px " + noSize + "px";
     }
 };
-
-// floating hearts
-setInterval(() => {
-    let h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "💖";
-    h.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(h);
-
-    setTimeout(() => h.remove(), 6000);
-}, 400);
 </script>
 
 </body>
