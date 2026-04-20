@@ -8,145 +8,179 @@
 <style>
 body {
     margin: 0;
-    font-family: 'Georgia', serif;
-    background: #0d0d0d;
-    color: #fff;
-    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: black;
     overflow: hidden;
+    color: white;
 }
 
-.container {
-    margin-top: 25vh;
+/* screens */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+/* first screen */
+#screen1 {
+    background: linear-gradient(135deg, #1a1a1a, #000);
 }
 
 h1 {
-    font-size: 28px;
-    font-weight: 400;
-    opacity: 0;
-    animation: fadeIn 2s forwards;
+    font-size: 30px;
+    text-align: center;
 }
 
-.buttons {
-    margin-top: 40px;
-}
-
+/* buttons */
 button {
-    padding: 12px 28px;
-    font-size: 16px;
+    padding: 14px 28px;
+    margin: 15px;
     border-radius: 30px;
     border: none;
+    font-size: 16px;
     cursor: pointer;
-    margin: 10px;
     transition: 0.3s;
 }
 
 #yesBtn {
-    background: #ffffff;
-    color: #000;
+    background: #00c853;
+    color: white;
 }
 
 #noBtn {
-    background: transparent;
+    background: #333;
     color: #aaa;
-    border: 1px solid #444;
 }
 
-#noBtn:hover {
-    opacity: 0.4;
+/* second screen */
+#screen2 {
+    background: radial-gradient(circle, #111, #000);
+    opacity: 0;
+    transform: scale(1.2);
 }
 
-#letter {
-    display: none;
-    max-width: 90%;
-    margin: 40px auto;
-    font-size: 18px;
+/* active transition */
+.show {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* message */
+#message {
+    max-width: 85%;
+    font-size: 20px;
     line-height: 1.6;
-    color: #ddd;
-    animation: fadeIn 2s;
+    text-align: center;
+    opacity: 0;
+    transition: 2s;
 }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
+/* glow text */
+.glow {
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
 }
 
 /* particles */
 .particle {
     position: fixed;
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     background: white;
     opacity: 0.3;
     border-radius: 50%;
-    animation: float 8s linear infinite;
+    animation: float 6s linear infinite;
 }
 
 @keyframes float {
     from {transform: translateY(100vh);}
     to {transform: translateY(-10vh);}
 }
-
-/* hidden music */
-#musicBox {
-    display: none;
-}
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Music (hidden, will start after YES) -->
-<div id="musicBox">
-  <iframe id="musicPlayer" width="0" height="0"
-    src=""
-    frameborder="0" allow="autoplay"></iframe>
-</div>
+<!-- 🎵 Music -->
+<iframe id="music" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
 
-<div class="container">
-    <h1>Savi… will you go for a coffee with me?</h1>
-
-    <div class="buttons">
-        <button id="yesBtn">Yes</button>
+<!-- Screen 1 -->
+<div id="screen1" class="screen">
+    <h1>Savi… will you go for coffee with me? ☕</h1>
+    <div>
+        <button id="yesBtn">Yes 💖</button>
         <button id="noBtn">No</button>
     </div>
+</div>
 
-    <div id="letter">
+<!-- Screen 2 -->
+<div id="screen2" class="screen">
+    <div id="message" class="glow">
         Savi…<br><br>
 
-        I don’t know how to say this perfectly,  
-        but I feel it deeply… every single day.<br><br>
+        I don’t say this often… but you matter to me.  
+        A lot more than I show.<br><br>
 
-        I admire you more than you probably realize.  
-        The way you are… the way you exist… it just feels special to me.<br><br>
+        When you weren’t okay… it genuinely hurt.  
+        I felt it here… like something wasn’t right.<br><br>
 
-        When you’re not okay, something in me just doesn’t feel right either.  
-        It’s strange… but it’s real.<br><br>
+        Maybe it sounds strange…  
+        but it feels like after so many prayers,  
+        life sent me someone like you.<br><br>
 
-        When you were in the hospital…  
-        seeing you like that genuinely hurt me.  
-        It felt heavy in my chest… like something was wrong and I couldn’t fix it.<br><br>
+        I just want to see you smile… always. ❤️<br><br>
 
-        I don’t know why, but it felt like after praying so much…  
-        God brought someone into my life who matters this much.<br><br>
-
-        I just want to see you smile more.  
-        I just want you to be okay.<br><br>
-
-        And maybe…  
-        if you say yes today,  
-        we could start with something simple… like a coffee ☕<br><br>
-
-        — Someone who truly cares about you ❤️
+        So… let’s start simple —  
+        coffee? ☕
     </div>
 </div>
 
 <script>
-// YES click → show letter + start music 🎵
-document.getElementById("yesBtn").onclick = function() {
-    document.getElementById("letter").style.display = "block";
+let yesBtn = document.getElementById("yesBtn");
+let noBtn = document.getElementById("noBtn");
 
-    let player = document.getElementById("musicPlayer");
-    player.src = "https://www.youtube.com/embed/5Eqb_-j3FDA?autoplay=1&loop=1&playlist=5Eqb_-j3FDA";
+// NO button moves slightly
+noBtn.addEventListener("mouseover", function() {
+    let x = Math.random() * 200 - 100;
+    let y = Math.random() * 100 - 50;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// YES click → transition
+yesBtn.onclick = function() {
+    document.getElementById("screen1").style.opacity = "0";
+    document.getElementById("screen1").style.transform = "scale(0.8)";
+
+    let s2 = document.getElementById("screen2");
+    s2.classList.add("show");
+
+    // show text after delay
+    setTimeout(() => {
+        document.getElementById("message").style.opacity = "1";
+    }, 800);
+
+    // start music 🎵
+    document.getElementById("music").src =
+    "https://www.youtube.com/embed/5Eqb_-j3FDA?autoplay=1&loop=1&playlist=5Eqb_-j3FDA";
 };
+
+// particles
+setInterval(() => {
+    let p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(p);
+
+    setTimeout(() => p.remove(), 6000);
+}, 200);
+</script>
+
+</body>
+</html>};
 
 // NO fades away
 document.getElementById("noBtn").onclick = function() {
