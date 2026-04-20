@@ -104,7 +104,9 @@ button {
 <body>
 
 <!-- 🎵 music -->
-<iframe id="music" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
 
 <!-- Screen 1 -->
 <div id="screen1" class="screen">
@@ -119,15 +121,11 @@ button {
 <div id="screen2" class="screen">
     <div id="message">
         Savi…<br><br>
-
-        You matter to me more than I say.  
+        You matter to me more than I say.<br>
         When you weren’t okay… it hurt.<br><br>
-
-        It felt like something wasn’t right inside me.  
+        It felt like something wasn’t right inside me.<br>
         Maybe weird… but real.<br><br>
-
         I just want to see you smile… always ❤️<br><br>
-
         So… coffee? ☕
     </div>
 </div>
@@ -138,6 +136,7 @@ let noBtn = document.getElementById("noBtn");
 let screen1 = document.getElementById("screen1");
 let screen2 = document.getElementById("screen2");
 let message = document.getElementById("message");
+let bgMusic = document.getElementById("bgMusic");
 
 let noSize = 16;
 
@@ -145,6 +144,7 @@ let noSize = 16;
 yesBtn.onclick = function() {
     screen1.style.opacity = "0";
     screen1.style.transform = "scale(0.8)";
+    setTimeout(() => screen1.style.display = "none", 800);
 
     screen2.classList.add("show");
 
@@ -153,19 +153,17 @@ yesBtn.onclick = function() {
     }, 800);
 
     // 🎵 start music
-    document.getElementById("music").src =
-    "https://www.youtube.com/embed/5Eqb_-j3FDA?autoplay=1&loop=1&playlist=5Eqb_-j3FDA";
+    bgMusic.play();
 };
 
 // ✅ NO click (shrink)
 noBtn.onclick = function() {
     noSize -= 2;
-
-    noBtn.style.fontSize = noSize + "px";
-    noBtn.style.padding = (noSize/2) + "px " + noSize + "px";
-
-    if (noSize <= 6) {
+    if (noSize <= 10) {
         noBtn.style.display = "none";
+    } else {
+        noBtn.style.fontSize = noSize + "px";
+        noBtn.style.padding = (noSize/2) + "px " + noSize + "px";
     }
 };
 
